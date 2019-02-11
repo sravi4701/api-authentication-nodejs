@@ -1,7 +1,7 @@
 const http = require('http');
 
-const app = require('./app');
 const config = require('config');
+const app = require('./app');
 
 // Normalize a port into string, number or false
 function normalizePort(port) {
@@ -24,7 +24,7 @@ const server = http.createServer(app);
 server.listen(port);
 server.once('listening', () => {
     const address = server.address();
-    const bind = typeof address === 'string'?`Pipe ${address.port}`:`port ${address.port}`
+    const bind = typeof address === 'string' ? `Pipe ${address.port}` : `port ${address.port}`;
     console.log(`Server is listening on ${bind}`);
 });
 
