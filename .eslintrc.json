@@ -13,7 +13,7 @@
         "Promise": true
     },
     "rules": {
-        "prettier/prettier": ["error"],
+        "prettier/prettier": ["error", {"space-before-function-paren": true}],
         "no-console": ["error"],
         "no-constant-condition": [
             "error",
@@ -430,6 +430,7 @@
                 "before": false,
                 "after": true
             }
-        ]
+        ],
+        "class-methods-use-this": ["off"]
     }
 }
