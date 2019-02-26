@@ -1,7 +1,8 @@
 const express = require('express');
 const morgan = require('morgan');
-const mongoose = require('mongoose');
 const loadApiRoutes = require('./routes');
+
+const db = require('./modules/db');
 
 const app = express();
 

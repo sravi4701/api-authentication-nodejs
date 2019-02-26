@@ -14,13 +14,14 @@
     },
     "rules": {
         "prettier/prettier": ["error", {"space-before-function-paren": true}],
-        "no-console": ["error"],
+        "no-console": ["off"],
         "no-constant-condition": [
             "error",
             {
                 "checkLoops": false
             }
         ],
+        "prefer-destructuring": ["off"],
         "no-debugger": ["error"],
         "no-dupe-args": ["error"],
         "no-dupe-keys": ["error"],

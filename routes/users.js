@@ -3,11 +3,11 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controller/users');
 const validationSchema = require('../classes/validation-schema');
-const validateMiddleware = require('../middlewares/validate-body');
+const validateBodyMiddleware = require('../middlewares/validate-body');
 
 router.post(
     '/signup',
-    validateMiddleware(validationSchema.signUpSchema()),
+    validateBodyMiddleware(validationSchema.signUpSchema()),
     userController.handleSignup
 );
 
