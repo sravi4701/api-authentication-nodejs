@@ -8,5 +8,8 @@ module.exports = {
     app: {
         PORT: process.env.PORT,
         MONGO_URI: process.env.MONGO_URI
+    },
+    jwt: {
+        SECRET: process.env.SECRET
     }
 };

@@ -4,6 +4,8 @@ const loadApiRoutes = require('./routes');
 
 const db = require('./modules/db');
 
+// require('./middlewares/passport');
+
 const app = express();
 
 // middlewares

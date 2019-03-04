@@ -4,7 +4,7 @@ const assert = require('assert');
 
 class SmartEnums {
     constructor(properties) {
-        assert(!_.isPlainObject(properties), `Properties should be a plain object`);
+        assert(_.isPlainObject(properties), `Properties should be a plain object`);
         this._properties = new Map(_.toPairs(properties));
         this.attachProperties();
         Object.freeze(this);
