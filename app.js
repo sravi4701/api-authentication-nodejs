@@ -2,9 +2,9 @@ const express = require('express');
 const morgan = require('morgan');
 const loadApiRoutes = require('./routes');
 
-const db = require('./modules/db');
+require('./modules/db'); // initialize database
 
-// require('./middlewares/passport');
+require('./middlewares/passport'); // configure passport strategies
 
 const app = express();
 

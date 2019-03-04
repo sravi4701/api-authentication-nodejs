@@ -31,7 +31,14 @@ class User {
     }
 
     handleLogin(req, res, next) {
-        res.send('Login');
+        // send token
+        const user = req.user;
+        const token = Utils.signToken({ id: user.id });
+        res.send({
+            data: {
+                token
+            }
+        });
     }
 
     handleSecret(req, res, next) {

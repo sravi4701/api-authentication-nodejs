@@ -6,19 +6,21 @@ const userController = require('../controller/users');
 const validationSchema = require('../classes/validation-schema');
 const validateBodyMiddleware = require('../middlewares/validate-body');
 
-const passportConf = require('../middlewares/passport');
-
 router.post(
     '/signup',
     validateBodyMiddleware(validationSchema.signUpSchema()),
     userController.handleSignup
 );
 
-router.post('/login', userController.handleLogin);
+router.post(
+    '/login',
+    passport.authenticate('local', { session: false }),
+    userController.handleLogin
+);
 
 router.get(
     '/secret',
-    passport.authenticate('jwt', { session: false }),
+    passport.authenticate('jwt', { session: false }), // passport authenticate middleware
     userController.handleSecret
 );
 
