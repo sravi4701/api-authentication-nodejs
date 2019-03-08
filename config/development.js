@@ -7,5 +7,9 @@ module.exports = {
     },
     jwt: {
         SECRET: process.env.JWT_SECRET
+    },
+    google: {
+        OAUTH_CLIENT_ID: process.env.GOOGLE_OAUTH_CLIENT_ID,
+        OAUTH_SECRET: process.env.GOOGLE_OAUTH_CLIENT_SECRET
     }
 };

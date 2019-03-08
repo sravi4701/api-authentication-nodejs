@@ -11,6 +11,7 @@ class User {
     handleSignup(req, res, next) {
         const { email, password } = req.body;
         const newUser = new UserModel({
+            method: 'local',
             email,
             password
         });
@@ -43,6 +44,17 @@ class User {
 
     handleSecret(req, res, next) {
         res.send('Secret');
+    }
+
+    handleGoogleOauthLogin(req, res, next) {
+        // send token from req.user
+        const user = req.user;
+        const token = Utils.signToken({ id: user.id });
+        res.send({
+            data: {
+                token
+            }
+        });
     }
 }
 

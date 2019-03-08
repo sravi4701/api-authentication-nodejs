@@ -4,13 +4,19 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 
 const LocalStrategy = require('passport-local').Strategy;
 
+const GoogleStrategy = require('passport-google-token').Strategy;
+
 const config = require('config');
 const UserModel = require('../db_models/users');
 
 console.log('secret is ', config.get('jwt.SECRET'));
+console.log('google client id', config.get('google.OAUTH_CLIENT_ID'));
+console.log('google secret key', config.get('google.OAUTH_SECRET'));
 
 // define passport strategy this must be configured before
 // accessing to passport middleware passport.authentication()
+
+// JWT Strategy
 passport.use(
     new JwtStrategy(
         {
@@ -53,6 +59,45 @@ passport.use(
                 })
                 .catch(err => {
                     done(err, false);
+                });
+        }
+    )
+);
+
+// Google Oauth Strategy
+
+passport.use(
+    'google',
+    new GoogleStrategy(
+        {
+            clientID: config.get('google.OAUTH_CLIENT_ID'),
+            clientSecret: config.get('google.OAUTH_SECRET')
+        },
+        (accessToken, refreshToken, profile, done) => {
+            console.log('accessToken', accessToken);
+            console.log('profile', profile);
+            const primaryEmail = profile.emails[0].value;
+            UserModel.findOne({ email: primaryEmail })
+                .then(user => {
+                    if (user) {
+                        return done(null, user);
+                    }
+                    const newUser = new UserModel({
+                        method: 'google',
+                        email: primaryEmail,
+                        google: profile
+                    });
+                    newUser
+                        .save()
+                        .then(user => {
+                            return done(null, user);
+                        })
+                        .catch(error => {
+                            return done(error, false);
+                        });
+                })
+                .catch(error => {
+                    return done(error, false);
                 });
         }
     )

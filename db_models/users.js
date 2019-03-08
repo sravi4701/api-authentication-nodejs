@@ -6,16 +6,20 @@ const { Schema } = mongoose;
 
 // create a schema
 const UserSchema = new Schema({
+    method: {
+        type: String,
+        enum: ['local', 'google', 'facebook']
+    },
     email: {
         type: String,
-        required: true,
         unique: true,
         lowercase: true
     },
     password: {
-        type: String,
-        required: true
-    }
+        type: String
+    },
+    google: {},
+    facebook: {}
 });
 
 // pre('save') middleware calls before writing document to db.
@@ -24,7 +28,7 @@ const UserSchema = new Schema({
 UserSchema.pre('save', function (next) {
     this.wasNew = this.isNew;
     // if this is the new record that is going to save in db for the first time.
-    if (this.isNew) {
+    if (this.isModified('password')) {
         // generate salt
         const salt = bcrypt.genSaltSync(10);
         console.log('salt', salt);
