@@ -1,10 +1,10 @@
 const passport = require('passport');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
-
 const LocalStrategy = require('passport-local').Strategy;
 
 const GoogleStrategy = require('passport-google-token').Strategy;
+const FacebookStrategy = require('passport-facebook-token');
 
 const config = require('config');
 const UserModel = require('../db_models/users');
@@ -102,3 +102,21 @@ passport.use(
         }
     )
 );
+
+// Facebook Oauth Strategy
+
+passport.use(new FacebookStrategy({
+    clientID: config.get('facebook.FACEBOOK_APP_ID'),
+    clientSecret: config.get('facebook.FACEBOOK_SECRET_KEY')
+}, (accessToken, refreshToken, profile, done) => {
+    // check if it's new user
+
+    // if it's existing user
+
+}));
+
+
+
+
+
+
